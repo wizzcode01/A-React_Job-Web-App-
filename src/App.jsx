@@ -6,7 +6,11 @@ import NotFoundPage from './pages/NotFoundPage';
 import JobPage, {jobLoader} from './pages/JobPage';
 import AddJobPage from './pages/AddJobPage';
 import EditJobPage from './pages/EditJobPage';
-
+import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage';
+import './firebase';
+import { AuthProvider } from './components/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   // Add new job
@@ -44,16 +48,27 @@ const updateJob = async (job) => {
 const router = createBrowserRouter(
     createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
-       <Route index element={<HomePage/>}/>
-       <Route path='/jobs' element={<JobsPage/>}/>
-       <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob}/>}/>
-       <Route path='/edit-job/:id' element={<EditJobPage updateJobSubmit={updateJob}/>} loader={jobLoader} />
-       <Route path='/job/:id' element={<JobPage deleteJob={deleteJob}/>} loader={jobLoader} />
-       <Route path='#' element={<NotFoundPage/>}/>
-     
+
+      {/* Protected routes */}
+      <Route element={<PrivateRoute/>}>
+        <Route index element={<HomePage/>}/>
+        <Route path='/jobs' element={<JobsPage/>}/>
+        <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob}/>}/>
+        <Route path='/edit-job/:id' element={<EditJobPage updateJobSubmit={updateJob}/>} loader={jobLoader} />
+        <Route path='/job/:id' element={<JobPage deleteJob={deleteJob}/>} loader={jobLoader} />
+      </Route>
+       <Route path='*' element={<NotFoundPage/>}/>
+       {/* Public routes */}
+       <Route path='/login' element={<LoginPage/>}/>
+       <Route path='/registration' element={<RegistrationPage/>}/>
     </Route>
   )
 )
-  return <RouterProvider router={router}/>
+  return (
+    <AuthProvider>
+       <RouterProvider router={router}/>
+    </AuthProvider>
+  )
+  
 }
 export default App

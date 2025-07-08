@@ -14,5 +14,10 @@ export default {
       },
     },
   },
-  plugins: [],
+  darkMode: 'class',
+  plugins: [
+     require('@tailwindcss/forms'),
+     require('@tailwindcss/typography'),
+     require('@tailwindcss/aspect-ratio'),
+  ],
 };

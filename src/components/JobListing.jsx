@@ -11,7 +11,7 @@ if(!showFullDescription){
     description = description.substring(0, 90) + '...'
 }
    return (
-      <div className="bg-white rounded-xl shadow-md relative">
+      <div className="bg-[#f1f1f8] text-[#03045e] rounded-xl shadow-md relative">
             <div className="p-4">
               <div className="mb-6">
                  <div className="text-gray-600 my-2">{job.type}</div>
@@ -21,11 +21,11 @@ if(!showFullDescription){
               <div className="mb-5">
                  {description}
               </div>
-              <button onClick={() => setShowFullDescription((prevState) => !prevState)} className="text-indigo-500 mb-5 hover:text-indigo-600">
+              <button onClick={() => setShowFullDescription((prevState) => !prevState)} className="text-[#03045e] hover:underline font-medium mt-2 mb-5 inline-block">
                 {showFullDescription ? 'Less' : 'More'}
               </button>
 
-              <h3 className="text-indigo-500 mb-2">{job.salary} / Year</h3>
+              <h3 className="text-[#03045e] mb-2">{job.salary} / Year</h3>
 
               <div className="border border-gray-100 mb-5"></div>
 
@@ -36,7 +36,7 @@ if(!showFullDescription){
                 </div>
                 <Link
                   to={`/job/${job.id}`}
-                  className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
+                  className="h-[36px] bg-[#0077b6] hover:bg-blue-800 text-white px-4 py-2 rounded-lg text-center text-sm"
                 >
                  Read More
                 </Link>
