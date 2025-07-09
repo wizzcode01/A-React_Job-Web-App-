@@ -2,11 +2,17 @@ import { useParams, useLoaderData, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAuth } from '../components/AuthContext';
 
 const JobPage = ({ deleteJob }) => {
     const navigate = useNavigate()
     const { id } = useParams();
     const job = useLoaderData();
+    const { user } = useAuth()
+    
+    if(!job || !job.company){
+        return <div className="text-center py-10 text-red-600">Job not found or loading...</div>
+    } 
 
     const onDeleteClick = (jobId) => {
         const confirm = window.confirm('Are you sure you want to delete this listing?')
@@ -20,6 +26,7 @@ const JobPage = ({ deleteJob }) => {
         navigate('/jobs')
 
     }
+  
 
     //MAKING USE OF USESTATE AND USEEFFECT 
 
@@ -72,18 +79,26 @@ const JobPage = ({ deleteJob }) => {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-                    <h3 className="text-indigo-800 text-lg font-bold mb-6">
-                        Job Description
-                    </h3>
+                        <h3 className="text-indigo-800 text-lg font-bold mb-6">
+                            Job Description
+                        </h3>
+                        <p className="mb-4">
+                        {job.description}
+                        </p>
+                        <h3 className="text-indigo-800 text-lg font-bold mb-2">Salary</h3>
+                       <p className="mb-4">{job.salary} / Year</p>
 
-                    <p className="mb-4">
-                      {job.description}
-                    </p>
+                         <div className="flex justify-center mt-6">
+                         {user &&  (
+                           <Link to={`/apply/${job.id}`}
+                            className="bg-[#0077b6] hover:bg-indigo-800 text-white font-bold py-2 px-6 rounded-[2rem] focus:outline-none focus:shadow-outline"
+                            >
+                                Apply for this Job
+                            </Link>    
+                         )}
+                       </div>
+                    </div> 
 
-                    <h3 className="text-indigo-800 text-lg font-bold mb-2">Salary</h3>
-
-                    <p className="mb-4">{job.salary} / Year</p>
-                    </div>
                 </main>
 
                 
@@ -134,10 +149,11 @@ const JobPage = ({ deleteJob }) => {
     )
    } 
 
-const jobLoader = async ({ params }) => {
-    const res = await fetch(`/api/jobs/${params.id}`)
-    const data = await res.json()
-    return data;
-}
+// const jobLoader = async ({ params }) => {
+//     const res = await fetch(`/api/jobs/${params.id}`)
+//     const data = await res.json()
+//     return data;
+// }
 
-export { JobPage as default, jobLoader } 
+// export { JobPage as default, jobLoader } 
+export default JobPage

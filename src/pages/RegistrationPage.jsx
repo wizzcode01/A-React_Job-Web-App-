@@ -63,8 +63,8 @@ const RegistrationPage = () => {
       // send email verification
       await sendEmailVerification(userCred.user)
 
-      alert("Registration successful! please check your email to verify your account")
-      navigate("/")
+      alert("Registration successful!")
+      navigate("/login")
       setStep(1)
 
     }catch (err){

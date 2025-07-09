@@ -12,7 +12,7 @@ const HomeCards = () => {
               Browse through our extensive list of job openings to find the one that suits you best.
             </p>
             <Link
-              href="/jobs"
+              to="/jobs"
               className="inline-block bg-[#0077b6] text-white rounded-lg px-4 py-2  hover:bg-blue-800"
             >
               Browse Jobs

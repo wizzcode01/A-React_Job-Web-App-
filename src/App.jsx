@@ -11,6 +11,7 @@ import RegistrationPage from './pages/RegistrationPage';
 import './firebase';
 import { AuthProvider } from './components/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
+import ApplyJobPage from './pages/ApplyJobPage';
 
 const App = () => {
   // Add new job
@@ -56,6 +57,7 @@ const router = createBrowserRouter(
         <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob}/>}/>
         <Route path='/edit-job/:id' element={<EditJobPage updateJobSubmit={updateJob}/>} loader={jobLoader} />
         <Route path='/job/:id' element={<JobPage deleteJob={deleteJob}/>} loader={jobLoader} />
+        <Route path='/apply/:jobId' element={<ApplyJobPage/>}/>
       </Route>
        <Route path='*' element={<NotFoundPage/>}/>
        {/* Public routes */}
