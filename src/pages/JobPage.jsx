@@ -1,18 +1,26 @@
-import { useParams, useLoaderData, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from '../components/AuthContext';
+import jobsData from '../jobs.json'
 
 const JobPage = ({ deleteJob }) => {
     const navigate = useNavigate()
-    const { id } = useParams();
-    const job = useLoaderData();
+    const { id } = useParams()
     const { user } = useAuth()
+
     
-    if(!job || !job.company){
-        return <div className="text-center py-10 text-red-600">Job not found or loading...</div>
-    } 
+      const job =  jobsData.jobs.find((job) => job.id.toString() === id.toString())
+    
+    if(!job) {
+        console.warn("Job not found for ID:", id)
+        return (
+            <div className="text-center text-red-600 py-10">
+                Job not found or loading...
+            </div>
+        )
+    }
 
     const onDeleteClick = (jobId) => {
         const confirm = window.confirm('Are you sure you want to delete this listing?')

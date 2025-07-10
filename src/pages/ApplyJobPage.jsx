@@ -31,64 +31,55 @@ const ApplyJobPage = () => {
     }
 
     return (
-        <section className="flex items-center justify-center min-h-screen bg-gray-50">
+    <section className="flex items-center justify-center min-h-screen bg-gray-50 mb-6">
       {/* Center the form vertically and horizontally */}
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
-        encType="multipart/form-data"
-      >
-         <h2 className="text-2xl font-bold mb-6 text-center text-[#0077b6]">
-          Apply for Job
+     <form onSubmit={handleSubmit}
+       className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+       encType="multipart/form-data">
+        <h2 className="text-center text-2xl font-bold mb-6 text-[#0077b6]">
+            Apply for Job
         </h2>
-        {/* Name input */}
-        <input
-          type="text"
+       <input 
+         type="text"
           name="name"
           placeholder="Your Name"
-          className="border rounded w-full py-2 px-3 mb-4"
+          className="border rounded-[2rem] w-full py-2 px-3 mb-4"
           value={form.name}
           onChange={handleChange}
           required
         />
-          {/* Email input */}
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          className="border rounded w-full py-2 px-3 mb-4"
-          value={form.email}
-          onChange={handleChange}
-          required
+        <input type="email"
+        name="email"
+        placeholder="Your Email" 
+        className="border rounded-[2rem] w-full py-2 px-3 mb-4"
+        value={form.email}
+        onChange={handleChange}
+        required />
+        <textarea 
+        name="message" 
+        placeholder="Cover letter / Message "
+        className="border rounded-[2rem] w-full py-2 px-3 mb-4"
+        rows={4}
+        value={form.message}
+        onChange={handleChange}
         />
-          {/* Message textarea */}
-        <textarea
-          name="message"
-          placeholder="Cover Letter / Message"
-          className="border rounded w-full py-2 px-3 mb-4"
-          rows={4}
-          value={form.message}
-          onChange={handleChange}
-        />
-          {/* File upload */}
         <label className="block mb-2 font-semibold">Upload Resume/CV</label>
-        <input
-          type="file"
-          name="file"
-          accept=".pdf,.doc,.docx"
-          className="mb-4"
-          onChange={handleChange}
-          required
+        <input 
+        type="file"
+        name="file"
+        accept=".pdf,.doc,.docx"
+        className="mb-4"
+        onChange={handleChange}
+        required 
         />
-          {/* Submit button */}
         <button
-          type="submit"
-          className="bg-[#0077b6] hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full w-full"
+         type="submit"
+         className="bg-[#0077b6] hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-[2rem] w-full"
         >
-          Send Application
+         Send Application
         </button>
-      </form>
+     </form>
     </section>
     )
 }
-export default ApplyJobPage
+export default ApplyJobPage;
