@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
   // AnimatedText Component
-  function useAnimatedText(text){
+  function useAnimatedText(text, trigger){
     const [display, setDisplay] = useState("");
     useEffect(() => {
         setDisplay("")
@@ -11,15 +11,40 @@ import React, { useState, useEffect } from "react";
             setDisplay(text.slice(0, i + 1));
             i++;
             if(i >= text.length) clearInterval(interval)
-            }, 60)
+            }, 40)
             return () => clearInterval(interval)
-        }, [text])
+        }, [text, trigger])
         return display
     }
-
+    // AnimatedText component with intersection observer
     const AnimatedText = ({text}) => {
-        const animatedText = useAnimatedText(text)
-        return <h1 className="text-3xl font-extrabold text-[#03045e] sm:text-5xl md:text-6xl">{animatedText}</h1>
+        const [trigger, setTrigger] = useState(0)
+        const h1Ref = useRef(null)
+        const animatedText = useAnimatedText(text, trigger)
+
+        useEffect(() => {
+            const observer = new window.IntersectionObserver(
+                (entries) => {
+                    if(entries[0].isIntersecting){
+                        setTrigger((t) => t + 1)
+                    }
+                },
+            { threshold: 0.5 }
+        )
+        if (h1Ref.current) {
+           observer.observe(h1Ref.current); 
+        }
+        return () => {
+        if (h1Ref.current) observer.unobserve(h1Ref.current);
+        observer.disconnect();
+        };
+        }, [])
+    
+        return (
+        <h1 ref={h1Ref} 
+        className="text-3xl font-extrabold text-[#03045e] sm:text-5xl md:text-6xl">
+            {animatedText}</h1>
+        )
     }
   
  export default AnimatedText
