@@ -5,7 +5,7 @@ const HomeCards = () => {
         
     <section className="py-4">
       <div className="container-xl lg:container m-auto ">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg mb-4">
           <Card bg="bg-gray-100 shadow-lg">
             <h2 className="text-2xl font-bold text-[#03045e]">Find your perfect job</h2>
             <p className="mt-2 mb-4">
