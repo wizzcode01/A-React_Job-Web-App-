@@ -8,7 +8,7 @@ import jobsData from '../jobs.json'
 const JobPage = ({ deleteJob }) => {
     const navigate = useNavigate()
     const { id } = useParams()
-    const { user } = useAuth()
+    const {user, userType} = useAuth()
 
     
       const job =  jobsData.jobs.find((job) => job.id.toString() === id.toString())
@@ -56,7 +56,8 @@ const JobPage = ({ deleteJob }) => {
     // }, []
     return (
         <>
-            <section>
+         <div className="container m-auto">
+             <section>
             <div className="container m-auto py-6 px-6">
                 <Link
                 to="/jobs"
@@ -109,8 +110,8 @@ const JobPage = ({ deleteJob }) => {
 
                 </main>
 
-                
-                <aside>
+            {userType === "employer" && (
+                 <aside>
                 
                     <div className="bg-white p-6 rounded-lg shadow-md">
                     <h3 className="text-xl font-bold mb-6">Company Info</h3>
@@ -149,10 +150,15 @@ const JobPage = ({ deleteJob }) => {
                     </button>
                     </div>
                 </aside>
+
+            )}    
+               
                 </div>
             </div>
             </section>
 
+         </div>
+            
         </>
     )
    } 

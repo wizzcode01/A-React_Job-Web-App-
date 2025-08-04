@@ -11,7 +11,7 @@ import React, { useState, useEffect, useRef } from "react";
             setDisplay(text.slice(0, i + 1));
             i++;
             if(i >= text.length) clearInterval(interval)
-            }, 40)
+            }, 80)
             return () => clearInterval(interval)
         }, [text, trigger])
         return display
