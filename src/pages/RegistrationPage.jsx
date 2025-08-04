@@ -14,6 +14,7 @@ const RegistrationPage = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [userType, setUserType] = useState(""); // "jobseeker" or "employer"
   const [companyName, setCompanyName] = useState("");
   const [companyDesc, setCompanyDesc] = useState("");
@@ -56,6 +57,10 @@ const RegistrationPage = () => {
     e.preventDefault()
     setError("")
     try {
+      if(password !== confirmPassword){
+        setError("Password do not match")
+        return;
+      }
       // create user in firebase
       const userCred = await createUserWithEmailAndPassword(auth, email, password)
       // update display name
@@ -73,7 +78,9 @@ const RegistrationPage = () => {
   }
    const backRegistrationPage = (e) => {
     e.preventDefault()
-    setStep(1)
+      if(step === 1.5 ) setStep(1)
+       if(step === 2) setStep(1.5)
+        else if (step > 2 ) setStep(step - 1)
    }
   
   // Step 1: choose registration method
@@ -127,8 +134,8 @@ const RegistrationPage = () => {
            />
            <div className="flex justify-between mt-2 gap-4 ">
             <button onClick={backRegistrationPage}
-             className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] min-w-[30vw]"> Back </button>
-             <button className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] min-w-[30vw]" type="submit">
+             className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] lg:min-w-[10vw] min-w-[30vw]"> Back </button>
+             <button className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] lg:min-w-[10vw] min-w-[30vw]" type="submit">
               Next
              </button>
            </div>
@@ -161,14 +168,6 @@ const RegistrationPage = () => {
             required
           />
 
-          <input 
-           type="password"
-           className="border rounded-[2rem] w-full py-2 px-3 mb-4"
-           value={password}
-           placeholder="re-enter password"
-           onChange={e => setPassword(e.target.value)}
-           required
-           />
             <select
             className="border rounded-[2rem] w-full py-2 px-3 mb-4"
             value={userType}
@@ -181,9 +180,11 @@ const RegistrationPage = () => {
           </select>
             <div className="flex justify-between mt-2 gap-4 ">
             <button onClick={backRegistrationPage}
-             className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] min-w-[30vw]"> Back </button>
-             <button className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] min-w-[30vw]" type="submit">
-              Submit
+             className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] lg:min-w-[10vw] min-w-[30vw]">
+               Back 
+               </button>
+             <button className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] lg:min-w-[10vw] min-w-[30vw]" type="submit">
+              Next
              </button>
            </div>
         </form>
@@ -191,70 +192,33 @@ const RegistrationPage = () => {
     )
    }
    
-  // // Step 3
-  // if (step === 3) {
-  //   return (
-  //     <section className="flex items-center justify-center min-h-[85vh] bg-white">
-  //       <form onSubmit={handleFinalSubmit} className="bg-[#0077b6] flex flex-col items-center justify-center p-8 rounded-[2rem] shadow-md w-full max-w-[95vw] md:max-w-md min-h-[350px] mb-10">
-  //         <h2 className="text-2xl font-bold mb-6 text-center text-white">More Information</h2>
-  //         {error && <div className="text-red-500 mb-4">{error}</div>}
-  //         {userType === "employer" ? (
-  //           <>
-  //             <input
-  //               type="text"
-  //               className="border rounded-[2rem] w-full py-2 px-3 mb-4"
-  //               placeholder="Company Name"
-  //               value={companyName}
-  //                onChange={e => setCompanyName(e.target.value)}
-  //               required
-  //             />
+  // Step 3
+  if (step === 3) {
+    return (
+      <section className="flex items-center justify-center min-h-[85vh] bg-white">
+        <form onSubmit={handleFinalSubmit} className="bg-[#0077b6] flex flex-col items-center justify-center p-8 rounded-[2rem] shadow-md w-full max-w-[95vw] md:max-w-md min-h-[350px] mb-10">
+          <label htmlFor="" className="text-left text-white font-bold text-lg mb-2">Re-enter password</label>
+          <input type="password" 
+           className = "border rounded-[2rem] w-full py-2 px-3 mb-4"
+           placeholder="re-enter password"
+           value={confirmPassword}
+           onChange={e => setConfirmPassword(e.target.value)}
+           required
 
-  //              <textarea
-  //               className="border rounded-[2rem] w-full py-2 px-3 mb-4"
-  //               placeholder="What does your company do?"
-  //               value={companyDesc}
-  //               onChange={e => setCompanyDesc(e.target.value)}
-  //               required
-  //             />
-
-  //               <input
-  //               type="text"
-  //               className="border rounded-[2rem] w-full py-2 px-3 mb-4"
-  //               placeholder="Type of people you want to employ"
-  //               value={hireType}
-  //               onChange={e => setHireType(e.target.value)}
-  //               required
-  //             />
-  //           </>
-            
-  //             ) : (
-  //           <>
-  //             <input
-  //               type="text"
-  //               className="border rounded-[2rem] w-full py-2 px-3 mb-4"
-  //               placeholder="What kind of job are you looking for?"
-  //               value={jobType}
-  //               onChange={e => setJobType(e.target.value)}
-  //               required
-  //             />
-
-  //                <input
-  //               type="text"
-  //               className="border rounded-[2rem] w-full py-2 px-3 mb-4"
-  //               placeholder="What is your field?"
-  //               value={jobField}
-  //               onChange={e => setJobField(e.target.value)}
-  //               required
-  //             />
-  //           </>
-  //         )}
-  //         <button className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] w-full" type="submit">
-  //           Submit
-  //         </button>
-  //        </form>
-  //     </section>
-  //   );
-  // }
+          />
+           <div className="flex justify-between mt-2 gap-4 ">
+            <button onClick={backRegistrationPage}
+             className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] lg:min-w-[10vw] min-w-[30vw]">
+               Back 
+               </button>
+             <button className="bg-[#03045e] hover:bg-[#20228b] text-white font-bold py-2 px-4 rounded-[2rem] lg:min-w-[10vw] min-w-[30vw]" type="submit">
+              Submit
+             </button>
+           </div>
+         </form>
+      </section>
+    );
+  }
     return null; // fallback if no step matches
 
 }     
