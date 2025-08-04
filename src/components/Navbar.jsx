@@ -31,7 +31,7 @@ const Navbar = () => {
                       `text-[17px] sm:text-[20px] md:block text-white md:text-2xl font-bold ml-2` + 
                       (
                         ['/login', '/registration'].includes(location.pathname)
-                        ? ' text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] '
+                        ? ' text-[1.5rem] sm:text-[2rem] md:text-[2.5rem text-lg] '
                         : ''
                       )
                     }
